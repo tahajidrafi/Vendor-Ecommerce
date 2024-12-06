@@ -3,6 +3,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Vendor } from "../models/vendor.model.js";
 import { User } from "../models/user.model.js";
 import { apiError } from "../utils/apiError.js";
+import { Review } from "../models/review.model.js";
+import { body, validationResult } from "express-validator";
 
 export const verifyJWTVendor = asyncHandler(async (req, _, next) => {
   try {
@@ -99,4 +101,22 @@ export const adminRoute = asyncHandler(async (req, res, next) => {
   } else {
     throw new apiError(403, "Access denied - Unauthorized request");
   }
+});
+
+export const verifyReviewOwner = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const review = await Review.findById(id);
+
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found");
+  }
+
+  if (review.userId.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new apiError(403, "Access denied - Unauthorized request");
+  }
+
+  next();
 });

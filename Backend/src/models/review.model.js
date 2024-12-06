@@ -8,7 +8,7 @@ const reviewSchema = new Schema(
       required: true,
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId, // Reference to User model
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
