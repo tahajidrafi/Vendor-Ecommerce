@@ -3,14 +3,14 @@ import mongoose, { Schema } from "mongoose";
 const orderSchema = new Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId, // Reference to User model
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     items: [
       {
         productId: {
-          type: mongoose.Schema.Types.ObjectId, // Reference to Product model
+          type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
           required: true,
         },
@@ -31,7 +31,7 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "shipped", "completed", "canceled"], // Valid statuses
+      enum: ["pending", "shipped", "completed", "canceled"],
       default: "pending",
     },
     shippingAddress: {

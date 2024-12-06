@@ -24,10 +24,12 @@ import UserRouter from "./routes/user.routes.js";
 import VendorRouter from "./routes/vendor.routes.js";
 import ProductRouter from "./routes/product.routes.js";
 import CategoryRouter from "./routes/category.routes.js";
+import OrderRouter from "./routes/order.routes.js";
 
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/vendors", VendorRouter);
 app.use("/api/v1/products", ProductRouter);
 app.use("/api/v1/category", CategoryRouter);
+app.use("/api/v1/orders", OrderRouter);
 
 export { app };
