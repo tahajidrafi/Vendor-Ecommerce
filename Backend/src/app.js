@@ -26,6 +26,7 @@ import ProductRouter from "./routes/product.routes.js";
 import CategoryRouter from "./routes/category.routes.js";
 import OrderRouter from "./routes/order.routes.js";
 import ReviewRouter from "./routes/review.routes.js";
+import TransactionRouter from "./routes/transaction.routes.js";
 
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/vendors", VendorRouter);
@@ -33,4 +34,5 @@ app.use("/api/v1/products", ProductRouter);
 app.use("/api/v1/category", CategoryRouter);
 app.use("/api/v1/orders", OrderRouter);
 app.use("/api/v1/reviews", ReviewRouter);
+app.use("/api/v1", TransactionRouter);
 export { app };
