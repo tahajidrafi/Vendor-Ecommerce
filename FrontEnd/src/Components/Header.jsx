@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   faAngleDown,
   faBars,
@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header() {
+  const nevigate = useNavigate();
   const [hideNav, setHideNav] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -149,7 +150,7 @@ export default function Header() {
             <FontAwesomeIcon
               icon={faUser}
               className="text-2xl hover:text-gray-500 cursor-pointer"
-              onClick={() => alert("Coming Soon!")}
+              onClick={() => nevigate("/auth")}
             />
           </div>
         </div>
