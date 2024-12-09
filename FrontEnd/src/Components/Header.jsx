@@ -18,7 +18,6 @@ export default function Header() {
 
   return (
     <header className="border-b border-gray-300">
-      {/* Mobile Menu */}
       <nav
         className={`fixed bg-black text-white z-50 h-full w-3/4 sm:w-2/5 top-0 transition-transform duration-300 ${
           openMenu ? "translate-x-0" : "-translate-x-full"
@@ -64,10 +63,10 @@ export default function Header() {
       {hideNav && (
         <div className="bg-black text-white text-sm py-2 flex justify-center relative">
           <div className="flex items-center gap-2">
-            <span>Sign up & get 20% Off your first order.</span>
-            <a href="#" className="font-bold underline">
-              Sign Up Now
-            </a>
+            <span>Register & get 20% Off your first order.</span>
+            <Link to="/auth" className="font-bold underline">
+              Register Now
+            </Link>
           </div>
           <FontAwesomeIcon
             icon={faXmark}

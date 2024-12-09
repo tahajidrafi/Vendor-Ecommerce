@@ -118,13 +118,22 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    sameSite: "None",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week expiry
   };
 
   return res
     .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      path: "/", // Make the cookie available to all routes
+      domain: "localhost", // Set correct domain
+    })
+    .cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      path: "/", // Make the cookie available to all routes
+      domain: "localhost", // Set correct domain
+    })
     .json(
       new apiResponse(
         200,
@@ -223,6 +232,9 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    throw new apiError(404, "User not found.");
+  }
   return res
     .status(200)
     .json(new apiResponse(200, req.user, "Current user fetched successfully."));

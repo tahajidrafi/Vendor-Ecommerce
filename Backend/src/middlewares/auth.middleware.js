@@ -4,7 +4,6 @@ import { Vendor } from "../models/vendor.model.js";
 import { User } from "../models/user.model.js";
 import { apiError } from "../utils/apiError.js";
 import { Review } from "../models/review.model.js";
-import { body, validationResult } from "express-validator";
 
 export const verifyJWTVendor = asyncHandler(async (req, _, next) => {
   try {
