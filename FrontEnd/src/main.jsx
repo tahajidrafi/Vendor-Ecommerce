@@ -3,9 +3,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home.jsx";
-import RegistrationForm from "./pages/Auth.jsx";
-import UserDashboard from "./pages/userDashboard.jsx";
+import RegistrationForm from "./pages/Auth.jsx"; // Import the new page
 import { checkAuth } from "./utils/auth.js";
+import UpdateUserDetails from "./pages/UpdateUserDetails.jsx";
+import Dashboard from "./pages/UserDashboard.jsx";
 
 // Custom hook for authentication check
 const useAuth = () => {
@@ -66,7 +67,15 @@ createRoot(document.getElementById("root")).render(
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <UserDashboard />
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/update-account-details"
+          element={
+            <ProtectedRoute>
+              <UpdateUserDetails /> {/* Protected route for updating details */}
             </ProtectedRoute>
           }
         />
