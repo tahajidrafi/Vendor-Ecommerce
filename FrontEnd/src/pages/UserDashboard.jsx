@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Components/Footer";
 import Header from "../components/Header";
+import Loading from "../utils/Loading";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -30,8 +31,6 @@ const Dashboard = () => {
             withCredentials: true, // Ensure cookies are sent
           }
         );
-
-        console.log("Response Data:", response.data); // Log the full response to inspect
 
         const { data: userData } = response.data; // Get the user data from the response
 
@@ -84,11 +83,7 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid border-opacity-70"></div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) return <div className="text-red-600">{error}</div>;

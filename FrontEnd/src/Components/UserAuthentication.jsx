@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Banner from "../Images/auth-banner.jpg";
+import { Link } from "react-router-dom"; // Added import for Link component
 
 const UserAuthenticationForm = () => {
   const [activeTab, setActiveTab] = useState("register");
@@ -107,16 +109,19 @@ const UserAuthenticationForm = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-100 text-gray-800 relative px-4 md:px-0">
+    <div
+      className="min-h-[80vh] flex items-center justify-center bg-cover bg-center relative px-4 md:px-0"
+      style={{ backgroundImage: `url(${Banner})` }} // Replace with your image URL
+    >
       {/* Blur effect during loading */}
       {loading && (
         <div className="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center z-10">
-          <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-800 rounded-full animate-spin"></div>
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-primary rounded-full animate-spin"></div>
         </div>
       )}
 
       <div
-        className={`w-full max-w-md md:max-w-lg p-6 bg-white rounded-lg shadow-lg border border-gray-200 ${
+        className={`w-full max-w-md md:max-w-lg p-6 bg-white bg-opacity-80 rounded-lg shadow-lg border border-gray-200 ${
           loading ? "filter blur-sm" : ""
         }`}
       >
@@ -125,7 +130,7 @@ const UserAuthenticationForm = () => {
           <button
             className={`w-1/2 text-center py-2 font-semibold ${
               activeTab === "register"
-                ? "border-b-2 border-gray-800 text-gray-800"
+                ? "border-b-2 border-primary text-primary"
                 : "text-gray-500"
             }`}
             onClick={() => setActiveTab("register")}
@@ -136,7 +141,7 @@ const UserAuthenticationForm = () => {
           <button
             className={`w-1/2 text-center py-2 font-semibold ${
               activeTab === "login"
-                ? "border-b-2 border-gray-800 text-gray-800"
+                ? "border-b-2 border-primary text-primary"
                 : "text-gray-500"
             }`}
             onClick={() => setActiveTab("login")}
@@ -178,7 +183,7 @@ const UserAuthenticationForm = () => {
                   id="fullName"
                   name="fullName"
                   placeholder="Enter your name"
-                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                   value={formData.fullName}
                   onChange={handleChange}
                   required
@@ -197,7 +202,7 @@ const UserAuthenticationForm = () => {
                   id="address"
                   name="address"
                   placeholder="Enter your address"
-                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                   value={formData.address}
                   onChange={handleChange}
                   required
@@ -216,7 +221,7 @@ const UserAuthenticationForm = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder="Enter your phone number"
-                  className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 ${
+                  className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary ${
                     phoneError ? "border-red-500" : ""
                   }`}
                   value={formData.phoneNumber}
@@ -235,7 +240,7 @@ const UserAuthenticationForm = () => {
                   type="file"
                   id="profileImage"
                   name="profileImage"
-                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                   onChange={handleFileChange}
                   disabled={loading}
                 />
@@ -251,7 +256,7 @@ const UserAuthenticationForm = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
-              className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 ${
+              className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary ${
                 emailError ? "border-red-500" : ""
               }`}
               value={formData.email}
@@ -272,7 +277,7 @@ const UserAuthenticationForm = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 ${
+              className={`w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary ${
                 passwordError ? "border-red-500" : ""
               }`}
               value={formData.password}
@@ -291,23 +296,28 @@ const UserAuthenticationForm = () => {
               )}
             </span>
           </div>
-          <button
-            type="submit"
-            className="w-full bg-gray-800 text-white hover:bg-gray-700 transition py-2 rounded-md font-semibold"
-            disabled={loading}
-          >
-            {activeTab === "register" ? "Register" : "Login"}
-          </button>
-          {activeTab === "register" && (
+
+          {/* Forgot Password Link */}
+          {activeTab === "login" && (
+            <div className="mt-2 text-right">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-primary hover:text-primary-dark transition"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+          )}
+
+          <div className="flex justify-center">
             <button
-              type="button"
-              className="w-full mt-2 bg-gray-100 text-gray-800 hover:bg-gray-200 transition py-2 rounded-md font-semibold border border-gray-300"
-              onClick={() => alert("Redirecting to Vendor Registration...")}
+              type="submit"
+              className="w-full bg-primary text-white py-2 rounded-md text-sm font-semibold hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
               disabled={loading}
             >
-              Register as a Vendor
+              {activeTab === "register" ? "Register" : "Login"}
             </button>
-          )}
+          </div>
         </form>
       </div>
     </div>

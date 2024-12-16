@@ -7,6 +7,7 @@ import RegistrationForm from "./pages/Auth.jsx"; // Import the new page
 import { checkAuth } from "./utils/auth.js";
 import UpdateUserDetails from "./pages/UpdateUserDetails.jsx";
 import Dashboard from "./pages/UserDashboard.jsx";
+import Loading from "./utils/Loading.jsx";
 
 // Custom hook for authentication check
 const useAuth = () => {
@@ -36,7 +37,7 @@ const useAuth = () => {
 const GuestRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // You can replace this with a loader component
+  if (loading) return <Loading />;
 
   return !isAuthenticated ? children : <Navigate to="/dashboard" />;
 };
@@ -45,7 +46,7 @@ const GuestRoute = ({ children }) => {
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return isAuthenticated ? children : <Navigate to="/auth" />;
 };

@@ -53,7 +53,7 @@ export default function Footer() {
 
   return (
     <div className="bg-[#F2F0F1] mt-[200px] sm:mt-[120px] relative">
-      <div className="absolute -top-[140px] sm:-top-[95px] sm:left-[80px] left-[20px] w-[90%] bg-black text-white rounded-3xl sm:flex items-center justify-between p-10">
+      <div className="absolute -top-[140px] sm:-top-[95px] sm:left-[80px] left-[20px] w-[90%] bg-[#BE3756] text-white rounded-3xl sm:flex items-center justify-between p-10">
         <h2 className="text-xl sm:text-4xl font-bold">
           STAY UP-TO-DATE ABOUT OUR LATEST PRODUCTS
         </h2>
@@ -68,7 +68,7 @@ export default function Footer() {
               className="absolute top-4 left-4 text-xl text-gray-500"
             />
           </div>
-          <button className="bg-white text-black h-12 w-full rounded-full font-bold hover:scale-105">
+          <button className="bg-white text-[#BE3756] h-12 w-full rounded-full font-bold hover:scale-105 hover:bg-gray-200">
             Subscribe to Newsletter
           </button>
         </div>
@@ -76,7 +76,9 @@ export default function Footer() {
 
       <div className="sm:grid grid-cols-6 sm:px-[100px] pt-[100px] pb-[25px] w-[90%] mx-auto">
         <div className="col-span-2 flex flex-col gap-2 sm:gap-4 pe-[40px]">
-          <p className="font-bold text-4xl mt-7 sm:mt-0">Shop.co</p>
+          <p className="font-bold text-4xl mt-7 sm:mt-0 text-[#BE3756]">
+            Shop.co
+          </p>
           <p className="text-gray-600">
             We have clothes that suit your style and make you proud to wear.
             From Women to Men.
@@ -86,7 +88,7 @@ export default function Footer() {
               <FontAwesomeIcon
                 key={index}
                 icon={icon}
-                className="transition duration-200 hover:-translate-y-1"
+                className="transition duration-200 hover:-translate-y-1 text-[#BE3756] hover:text-black"
               />
             ))}
           </div>
@@ -99,10 +101,14 @@ export default function Footer() {
               index < 2 ? "sm:hidden" : "hidden sm:flex"
             }`}
           >
-            <h4 className="text-xl font-bold">{section.title}</h4>
+            <h4 className="text-xl font-bold text-[#BE3756]">
+              {section.title}
+            </h4>
             <div>
               {section.links.map((link, i) => (
-                <p key={i}>{link}</p>
+                <p key={i} className="hover:text-[#BE3756] cursor-pointer">
+                  {link}
+                </p>
               ))}
             </div>
           </div>
@@ -115,7 +121,11 @@ export default function Footer() {
         </div>
         <div className="flex items-center gap-2 text-4xl pe-10 justify-center">
           {paymentIcons.map((icon, index) => (
-            <FontAwesomeIcon key={index} icon={icon} />
+            <FontAwesomeIcon
+              key={index}
+              icon={icon}
+              className="text-[#BE3756]"
+            />
           ))}
         </div>
       </div>
