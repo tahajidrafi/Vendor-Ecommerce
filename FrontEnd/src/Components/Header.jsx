@@ -5,22 +5,20 @@ import {
   faBarsStaggered,
   faXmark,
   faTags,
-  faEye,
-  faEyeSlash, // Category icon
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom"; // For routing
+import { Link, useLocation } from "react-router-dom";
 import logo from "../Images/logo.png";
 import axios from "axios";
 import SignupForm from "./SignupUser";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // State to toggle mobile menu visibility
-  const [showLoginModal, setShowLoginModal] = useState(false); // State for login modal
-  const [showSignupModal, setShowSignupModal] = useState(false); // State for signup modal
-  const location = useLocation(); // Get the current route for active link styling
-  const [showPassword, setShowPassword] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -259,7 +257,7 @@ const Header = () => {
       {/* Login Modal */}
       {showLoginModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
-          <div className="bg-white w-[85%] max-w-md p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
+          <div className="bg-white w-[75%] max-w-md p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
             <div className="flex justify-between items-center pb-6">
               <p className="font-bold text-xl">Login</p>
               <div
@@ -272,83 +270,9 @@ const Header = () => {
                 />
               </div>
             </div>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className={`w-full px-4 py-2 bg-gray-50 border ${
-                    emailError ? "border-red-500" : "border-gray-300"
-                  } rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary`}
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div className="relative">
-                <label
-                  htmlFor="password"
-                  className="block text-sm text-gray-600 mb-1"
-                >
-                  Password
-                </label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  className={`w-full px-4 py-2 bg-gray-50 border ${
-                    passwordError ? "border-red-500" : "border-gray-300"
-                  } rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary`}
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                />
-                <span
-                  className="absolute right-3 top-8 cursor-pointer text-gray-500"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <FontAwesomeIcon icon={faEyeSlash} />
-                  ) : (
-                    <FontAwesomeIcon icon={faEye} />
-                  )}
-                </span>
-              </div>
-
-              {/* Forgot Password Link */}
-              <div className="text-right">
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:text-primary-dark transition"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
-
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  className="w-full bg-primary text-white py-2 rounded-md text-sm font-semibold hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
-                  disabled={loading}
-                >
-                  Login
-                </button>
-              </div>
-            </form>
-            {/* Signup Prompt */}
-            <p className="text-sm mt-4 text-center">
+            <LoginModal />
+            {/* Register  Prompt */}
+            <p className="text-lg mt-4 text-center">
               Don't have an account?{" "}
               <span
                 className="text-primary cursor-pointer"
@@ -366,21 +290,25 @@ const Header = () => {
       {showSignupModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
           <div className="bg-white w-[85%] max-w-md p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md">
-            <div className="flex justify-between items-center">
-              <p className="font-bold text-xl">Sign Up</p>
-              <FontAwesomeIcon
-                icon={faXmark}
-                className="text-xl cursor-pointer"
+            <div className="flex justify-between items-center pb-6">
+              <p className="font-bold text-xl">Create Your Account !</p>
+              <div
+                className="flex justify-center items-center cursor-pointer bg-gray-200 p-2 rounded-full"
                 onClick={handleSignupModalToggle}
-              />
+              >
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  className="text-xl cursor-pointer"
+                />
+              </div>
             </div>
             {/* Signup Form */}
             <SignupForm />
             {/* Already have an account? Link to Login */}
-            <p className="text-sm mt-4 text-center">
-              Already have an account?{" "}
+            <p className="text-lg mt-4 text-center">
+              Already have an account?{""}
               <span
-                className="text-primary cursor-pointer"
+                className="text-primary cursor-pointer ps-1"
                 onClick={() => {
                   setShowSignupModal(false); // Close signup modal
                   setShowLoginModal(true); // Open login modal
