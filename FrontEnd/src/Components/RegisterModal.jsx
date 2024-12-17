@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Notification from "../utils/Notification.jsx";
 
-const SignupForm = () => {
+const RegisterModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null); // Notification state
@@ -232,4 +232,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default RegisterModal;

@@ -10,93 +10,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../Images/logo.png";
-import axios from "axios";
-import SignupForm from "./SignupUser";
 import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-
   const handleMenuToggle = () => {
-    setMenuOpen(!menuOpen); // Toggle mobile menu visibility
+    setMenuOpen(!menuOpen);
   };
 
-  // Toggle the login modal
   const handleLoginModalToggle = () => {
     setShowLoginModal(!showLoginModal);
   };
 
-  // Toggle the signup modal
   const handleSignupModalToggle = () => {
     setShowSignupModal(!showSignupModal);
-    setShowLoginModal(false); // Close login modal if opening signup modal
+    setShowLoginModal(false);
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    // Reset error flags when the user starts typing
-    if (name === "email") setEmailError(false);
-    if (name === "password") setPasswordError(false);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      setError(""); // Reset error before making the request
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/users/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        alert(response.data.message);
-        window.location.href = "/dashboard"; // Navigate to the dashboard
-      } else {
-        setError(response.data.message || "An error occurred.");
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      setError(
-        error.response?.data?.message || "An unexpected error occurred."
-      );
-
-      if (error.response?.data?.message === "User not found") {
-        setEmailError(true);
-      } else if (error.response?.data?.message === "Incorrect password") {
-        setPasswordError(true);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <header>
-      {/* Top Bar with seller registration link */}
       <div className="bg-primary text-white text-sm py-2 flex justify-center relative">
         <div className="flex items-center gap-2">
           <span>Become a Seller & Start Selling Your Products.</span>
@@ -109,7 +44,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Main Header */}
       <div className="py-3 flex justify-between items-center px-4 md:px-8 bg-white shadow-md">
         {/* Logo */}
         <Link to="/">
@@ -303,7 +237,7 @@ const Header = () => {
               </div>
             </div>
             {/* Signup Form */}
-            <SignupForm />
+            <RegisterModal />
             {/* Already have an account? Link to Login */}
             <p className="text-lg mt-4 text-center">
               Already have an account?{""}

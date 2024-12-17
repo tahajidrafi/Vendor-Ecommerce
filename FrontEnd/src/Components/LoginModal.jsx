@@ -44,7 +44,7 @@ const LoginModal = () => {
 
       if (response.status === 200 || response.status === 201) {
         alert(response.data.message);
-        window.location.href = "/dashboard"; // Navigate to the dashboard
+        window.location.href = "/dashboard";
       } else {
         setError(response.data.message || "An error occurred.");
       }
@@ -112,8 +112,6 @@ const LoginModal = () => {
           )}
         </span>
       </div>
-
-      {/* Forgot Password Link */}
       <div className="text-right">
         <Link
           to="/forgot-password"
