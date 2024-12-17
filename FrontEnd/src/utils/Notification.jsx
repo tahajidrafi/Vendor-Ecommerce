@@ -29,7 +29,7 @@ const Notification = ({ message, type = "info", duration = 3000, onClose }) => {
 
   return (
     <div
-      className={`fixed top-5 right-5 z-50 text-white px-4 py-2 rounded-md shadow-md ${getBackgroundColor()} transition-transform transform scale-100`}
+      className={`fixed top-5 right-5 z-100 text-white px-4 py-2 rounded-md shadow-md ${getBackgroundColor()} transition-transform transform scale-100`}
     >
       <p>{message}</p>
     </div>

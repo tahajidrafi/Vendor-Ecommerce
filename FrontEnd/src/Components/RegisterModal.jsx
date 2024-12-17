@@ -7,7 +7,7 @@ import Notification from "../utils/Notification.jsx";
 const RegisterModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [notification, setNotification] = useState(null); // Notification state
+  const [notification, setNotification] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -73,10 +73,10 @@ const RegisterModal = () => {
 
       if (response.status === 200 || response.status === 201) {
         setNotification({
-          message: response.data.message || "Signup successful!",
+          message: response.data.message || "Registration successful!",
           type: "success",
         });
-        setTimeout(() => (window.location.href = "/dashboard"), 1000); // Redirect after success
+        setTimeout(() => (window.location.href = "/dashboard"), 1000);
       } else {
         setNotification({
           message: response.data.message || "An error occurred.",
@@ -224,7 +224,7 @@ const RegisterModal = () => {
             className="w-full bg-primary text-white py-2 rounded-md text-lg font-semibold hover:bg-primary-dark"
             disabled={loading}
           >
-            {loading ? "Registering..." : "Sign Up"}
+            {loading ? "Registering..." : "Register"}
           </button>
         </div>
       </form>

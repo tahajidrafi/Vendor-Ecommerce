@@ -12,12 +12,14 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../Images/logo.png";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import Notification from "../utils/Notification";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const location = useLocation();
+
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -30,8 +32,28 @@ const Header = () => {
     setShowSignupModal(!showSignupModal);
     setShowLoginModal(false);
   };
+
+  const [notification, setNotification] = useState({
+    message: "",
+    type: "",
+    show: false,
+  });
+
+  const triggerNotification = (message, type) => {
+    setNotification({ message: "", type: "", show: false }); // Reset first
+
+    setTimeout(() => {
+      setNotification({ message, type, show: true }); // Trigger notification
+    }, 0);
+
+    setTimeout(() => {
+      setNotification({ message: "", type: "", show: false }); // Auto-hide notification
+    }, 3000);
+  };
+
   return (
     <header>
+      {/* Banner Section */}
       <div className="bg-primary text-white text-sm py-2 flex justify-center relative">
         <div className="flex items-center gap-2">
           <span>Become a Seller & Start Selling Your Products.</span>
@@ -44,6 +66,7 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Main Header Section */}
       <div className="py-3 flex justify-between items-center px-4 md:px-8 bg-white shadow-md">
         {/* Logo */}
         <Link to="/">
@@ -67,7 +90,7 @@ const Header = () => {
           />
         </div>
 
-        {/* Desktop View Icons (Cart and Profile) */}
+        {/* Desktop Icons (Cart and Profile) */}
         <div className="hidden md:flex items-center gap-4">
           {/* Cart Icon */}
           <div className="relative cursor-pointer">
@@ -85,8 +108,7 @@ const Header = () => {
             className="flex items-center gap-3 cursor-pointer group"
             onClick={handleLoginModalToggle}
           >
-            {/* Open Login Modal on Click */}
-            <p className="text-gray-600 group-hover:text-primary text-sm font-medium transition-colors duration-200 cursor-pointer">
+            <p className="text-gray-600 group-hover:text-primary text-sm font-medium transition-colors duration-200">
               Login
             </p>
             <div className="p-2 bg-gray-100 rounded-full group-hover:bg-primary transition-colors duration-200">
@@ -98,14 +120,12 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile View Icons */}
+        {/* Mobile Icons */}
         <div className="flex items-center gap-4 md:hidden">
-          {/* Search Icon */}
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="text-xl text-gray-600 hover:text-primary cursor-pointer"
           />
-          {/* Hamburger Menu Icon */}
           <FontAwesomeIcon
             icon={faBarsStaggered}
             className="text-xl text-gray-600 hover:text-primary cursor-pointer"
@@ -114,12 +134,12 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Second Section (Categories, Cart, and Links) */}
+      {/* Categories and Links */}
       <div className="py-3 flex justify-between items-center px-4 md:px-8 bg-white shadow-md border-t border-gray-200">
         {/* Mobile View */}
         <div className="md:hidden flex items-center justify-between w-full">
-          {/* Categories with icon */}
-          <div className=" flex items-center gap-2 cursor-pointer group hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105 px-4 border-e-4">
+          {/* Categories with Icon */}
+          <div className="flex items-center gap-2 cursor-pointer group hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105 px-4 border-e-4">
             <FontAwesomeIcon
               icon={faTags}
               className="text-2xl text-gray-600 group-hover:text-primary transition-colors duration-300 ease-in-out"
@@ -144,7 +164,6 @@ const Header = () => {
               className="flex items-center gap-3 cursor-pointer group"
               onClick={handleLoginModalToggle}
             >
-              {/* Open Login Modal on Click */}
               <p className="text-gray-600 group-hover:text-primary text-lg font-medium transition-colors duration-200">
                 Login
               </p>
@@ -160,7 +179,6 @@ const Header = () => {
 
         {/* Desktop View Links */}
         <div className="hidden md:flex items-center gap-10">
-          {/* Categories */}
           <div className="flex items-center gap-2 cursor-pointer group hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105 px-4 border-e-4">
             <FontAwesomeIcon
               icon={faTags}
@@ -171,7 +189,6 @@ const Header = () => {
             </p>
           </div>
 
-          {/* Desktop Menu Links */}
           <div className="flex gap-6">
             <Link
               to="/"
@@ -183,7 +200,7 @@ const Header = () => {
             >
               Home
             </Link>
-            {/* Other Links */}
+            {/* Add other links here */}
           </div>
         </div>
       </div>
@@ -204,22 +221,26 @@ const Header = () => {
                 />
               </div>
             </div>
-            <LoginModal />
-            {/* Register  Prompt */}
+            <LoginModal triggerNotification={triggerNotification} />
+            {notification.show && (
+              <Notification
+                message={notification.message}
+                type={notification.type}
+              />
+            )}
             <p className="text-lg mt-4 text-center">
               Don't have an account?{" "}
               <span
                 className="text-primary cursor-pointer"
                 onClick={handleSignupModalToggle}
               >
-                Sign up
+                Register
               </span>
             </p>
           </div>
         </div>
       )}
 
-      {/* Signup Modal */}
       {/* Signup Modal */}
       {showSignupModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
@@ -236,11 +257,9 @@ const Header = () => {
                 />
               </div>
             </div>
-            {/* Signup Form */}
             <RegisterModal />
-            {/* Already have an account? Link to Login */}
             <p className="text-lg mt-4 text-center">
-              Already have an account?{""}
+              Already have an account?{" "}
               <span
                 className="text-primary cursor-pointer ps-1"
                 onClick={() => {
@@ -255,11 +274,11 @@ const Header = () => {
         </div>
       )}
 
-      {/* Mobile Menu (Sliding from Right) */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 md:hidden"
-          onClick={handleMenuToggle} // Close the menu on outside click
+          onClick={handleMenuToggle}
         >
           <div
             className={`bg-white w-[85%] h-full p-6 absolute right-0 transform transition-all duration-500 ease-in-out ${
@@ -270,7 +289,6 @@ const Header = () => {
           >
             <div className="flex justify-between items-center mb-6">
               <p className="font-bold text-lg">Menu</p>
-              {/* Close Button */}
               <div className="bg-gray-200 p-2 rounded-full">
                 <FontAwesomeIcon
                   icon={faXmark}
@@ -279,19 +297,15 @@ const Header = () => {
                 />
               </div>
             </div>
-            {/* Mobile Menu Links */}
             <div className="flex flex-col gap-4">
               <Link
                 to="/"
-                className={`text-gray-600 hover:text-primary text-lg font-medium ${
-                  location.pathname === "/"
-                    ? "text-primary border-b-2 border-primary"
-                    : ""
-                }`}
+                className="text-lg text-gray-700 hover:text-primary"
+                onClick={handleMenuToggle}
               >
                 Home
               </Link>
-              {/* Other Links */}
+              {/* Add other mobile menu links here */}
             </div>
           </div>
         </div>
