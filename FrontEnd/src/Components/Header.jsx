@@ -13,6 +13,7 @@ import logo from "../Images/logo.png";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import Notification from "../utils/Notification";
+import { isUserLoggedIn } from "../utils/auth";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,6 +51,7 @@ const Header = () => {
       setNotification({ message: "", type: "", show: false }); // Auto-hide notification
     }, 3000);
   };
+  const loggedIn = isUserLoggedIn();
 
   return (
     <header>
@@ -104,20 +106,37 @@ const Header = () => {
           </div>
 
           {/* User Icon */}
-          <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={handleLoginModalToggle}
-          >
-            <p className="text-gray-600 group-hover:text-primary text-sm font-medium transition-colors duration-200">
-              Login
-            </p>
-            <div className="p-2 bg-gray-100 rounded-full group-hover:bg-primary transition-colors duration-200">
-              <FontAwesomeIcon
-                icon={faUser}
-                className="text-lg text-gray-600 group-hover:text-white transition-colors duration-200"
-              />
+          {loggedIn ? (
+            <div
+              className="flex items-center gap-3 cursor-pointer group"
+              onClick={handleLoginModalToggle}
+            >
+              <p className="text-gray-600 group-hover:text-primary text-sm font-medium transition-colors duration-200">
+                Dashboard
+              </p>
+              <div className="p-2 bg-gray-100 rounded-full group-hover:bg-primary transition-colors duration-200">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-lg text-gray-600 group-hover:text-white transition-colors duration-200"
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="flex items-center gap-3 cursor-pointer group"
+              onClick={handleLoginModalToggle}
+            >
+              <p className="text-gray-600 group-hover:text-primary text-sm font-medium transition-colors duration-200">
+                Login
+              </p>
+              <div className="p-2 bg-gray-100 rounded-full group-hover:bg-primary transition-colors duration-200">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-lg text-gray-600 group-hover:text-white transition-colors duration-200"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Mobile Icons */}
@@ -160,6 +179,7 @@ const Header = () => {
                 3
               </span>
             </div>
+
             <div
               className="flex items-center gap-3 cursor-pointer group"
               onClick={handleLoginModalToggle}
