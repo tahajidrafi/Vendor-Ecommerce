@@ -7,7 +7,7 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../Images/logo.png";
 import LoginModal from "./LoginModal";
@@ -51,7 +51,15 @@ const Header = () => {
       setNotification({ message: "", type: "", show: false }); // Auto-hide notification
     }, 3000);
   };
-  const loggedIn = isUserLoggedIn();
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const status = isUserLoggedIn();
+      setLoggedIn(status);
+    };
+
+    checkLoginStatus();
+  }, []);
 
   return (
     <header>

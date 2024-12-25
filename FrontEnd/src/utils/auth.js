@@ -21,9 +21,9 @@ export const isUserLoggedIn = async () => {
     const response = await axios.get(
       "http://localhost:8000/api/v1/users/dashboard"
     );
-    return response.data ? true : false; // Return true if the user is authenticated, else false
+    return response.data ? true : false;
   } catch (error) {
     console.error("Authentication check failed:", error);
-    return false; // Return false if authentication fails
+    return false;
   }
 };
