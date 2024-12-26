@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-router.get("/categories", verifyJWTAdmin, adminRoute, getAllCategories);
+router.get("/", getAllCategories);
 router
   .route("/create-category")
   .post(verifyJWTAdmin, adminRoute, createCategory);

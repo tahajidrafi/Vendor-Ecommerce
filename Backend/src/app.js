@@ -33,7 +33,7 @@ import CartRouter from "./routes/cart.routes.js";
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/vendors", VendorRouter);
 app.use("/api/v1/products", ProductRouter);
-app.use("/api/v1/category", CategoryRouter);
+app.use("/api/v1/categories", CategoryRouter);
 app.use("/api/v1/orders", OrderRouter);
 app.use("/api/v1/reviews", ReviewRouter);
 app.use("/api/v1/transactions", TransactionRouter);

@@ -5,8 +5,10 @@ import {
   faCog,
   faHouse,
   faImage,
+  faInbox,
   faPhotoFilm,
   faReceipt,
+  faTableCellsLarge,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import MainDashboard from "../Components/Admin_Dashboard/mainDashboard";
@@ -16,6 +18,7 @@ import Banner from "../Components/Admin_Dashboard/Banner";
 import Ads from "../Components/Admin_Dashboard/Ads";
 import PromoCode from "../Components/Admin_Dashboard/PromoCode";
 import Products from "../Components/Admin_Dashboard/Products";
+import Categories from "../Components/Admin_Dashboard/Categories";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -27,6 +30,8 @@ const AdminDashboard = () => {
     { id: "promo-code", label: "Promo Code", icon: faReceipt },
     { id: "products", label: "Products", icon: faBox },
     { id: "users", label: "Users", icon: faUser },
+    { id: "categories", label: "Categories", icon: faTableCellsLarge },
+    { id: "orders", label: "Orders", icon: faInbox },
   ];
 
   return (
@@ -62,6 +67,9 @@ const AdminDashboard = () => {
         {activeTab === "ads" && <Ads />}
         {activeTab === "promo-code" && <PromoCode />}
         {activeTab === "products" && <Products />}
+        {activeTab === "users" && <div>Users</div>}
+        {activeTab === "categories" && <Categories />}
+        {activeTab === "orders" && <div>Orders</div>}
       </div>
     </div>
   );
